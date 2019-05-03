@@ -1,0 +1,17 @@
+.AreaLegendTitle {
+  margin: 12px;
+  padding: 12px;
+  font-size: 12px;
+}
+
+.AreaLegendItem {
+  margin: 12px;
+  background-color: #F0F0F0;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.AreaLegendText {
+  font-size: 12px;
+  text-align: center;
+}

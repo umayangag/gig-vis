@@ -1,0 +1,14 @@
+.LegendTitle {
+  font-size: 12px;
+  margin: 12px;
+  padding: 12px;
+}
+
+.LegendItem {
+  font-size: 9px;
+  margin: 3px;
+  padding: 3px;
+  border-radius: 12px;
+  min-width: 12px;
+  text-align: center;
+}

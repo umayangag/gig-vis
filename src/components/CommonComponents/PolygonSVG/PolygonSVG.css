@@ -1,0 +1,17 @@
+.Polygon {
+  fill: #F0F0F0;
+  stroke: #808080;
+  stroke-width: 1px;
+}
+
+.PolygonText {
+  font-family: Futura;
+  font-size: 10px;
+  fill: black;
+  stroke: none;
+  text-anchor: middle;
+}
+
+.Info {
+  font-size: 6px;
+}

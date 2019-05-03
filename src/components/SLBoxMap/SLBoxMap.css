@@ -1,0 +1,24 @@
+body {
+  font-family: Futura;
+}
+.SLBoxMap {
+  width: 800px;
+  height: 1400px;
+
+  fill: none;
+  stroke: #F8F8F8;
+  stroke-width: 1px;
+  background-color: #F8F8F8;
+}
+.SLBoxMapRect {
+  fill: #F8F8F8;
+  stroke: #F8F8F8;
+}
+
+.SLBoxMapText {
+  text-anchor: middle;
+  fill: black;
+  stroke: none;
+  font-size: 24px;
+  z-index: -1;
+}
