@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import PolygonGroupList from '../CommonComponents/PolygonSVG/PolygonSVG.js';
 
-import SL_DISTRICT_POLYGON_GROUP_LIST from '../../py_scripts/lk.svg.parsed.json';
+import SL_DISTRICT_POLYGON_GROUP_LIST from '../../data/json/lk.svg.parsed.json';
 
 
 function getCartoDistort(nameToScaleMap) {

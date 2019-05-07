@@ -1,4 +1,4 @@
-export const DISTRICT_STATS = require('../py_scripts/district_stats3.json');
+export const DISTRICT_STATS = require('./json/district_stats3.json');
 
 const A = 0.6;
 

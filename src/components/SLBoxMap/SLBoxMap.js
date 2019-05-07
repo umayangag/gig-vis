@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
 import './SLBoxMap.css'
-import customBoxData from '../../py_scripts/lk.svg.parsed.json.box50.json';
-import districtStatsData from '../../py_scripts/district_stats.json';
+import customBoxData from '../../data/json/lk.svg.parsed.json.box50.json';
+import districtStatsData from '../../data/json/district_stats.json';
 
 function dataToSVG(boxData, nameToStyleMap) {
   const STEP = boxData.STEP;

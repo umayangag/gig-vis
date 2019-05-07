@@ -1,7 +1,7 @@
 import json
 import xml.etree.ElementTree as ET
 
-fin = open('name_map.json')
+fin = open('../data/json/name_map.json')
 NAME_MAP = json.loads(fin.read())
 
 
