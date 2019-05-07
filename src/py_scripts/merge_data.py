@@ -1,4 +1,5 @@
 import json
+
 fin1 = open('district_stats.json')
 fin2 = open('district_stats2.json')
 data1 = json.loads(fin1.read())

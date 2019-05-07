@@ -1,4 +1,5 @@
 import json
+
 ORIGINAL_FILE_NAME = 'lk.svg.parsed.json'
 fin = open(ORIGINAL_FILE_NAME)
 polygon_group_list = json.loads(fin.read())
@@ -35,7 +36,7 @@ for (h, polygon_group) in enumerate(polygon_group_list):
     name = polygon_group["name"]
     scale = DISTORT_WEIGHTS.get(name, 1.0)
     scale_w = scale * n_scale / sum_scale
-    print (name, scale_w)
+    print(name, scale_w)
 
     for (i, polygon) in enumerate(polygon_group["polygon_list"]):
         for (j, [x, y]) in enumerate(polygon):
@@ -61,6 +62,6 @@ for (h, polygon_group) in enumerate(polygon_group_list):
         polygon_group["polygon_list"][i] = polygon
     polygon_group_list[h] = polygon_group
 
-fout  = open('%s.carto.json' % (ORIGINAL_FILE_NAME), 'w')
+fout = open('%s.carto.json' % (ORIGINAL_FILE_NAME), 'w')
 fout.write(json.dumps(polygon_group_list, indent=2))
 fout.close()

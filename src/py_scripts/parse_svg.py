@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 fin = open('name_map.json')
 NAME_MAP = json.loads(fin.read())
 
+
 def parse(file_name, scale):
     tree = ET.parse(file_name)
     svg = tree.getroot()
@@ -24,16 +25,19 @@ def parse(file_name, scale):
 
             i = 0
             path_info_list = []
+
             def round_f(f):
                 return (int)(f * 100 + 0.5) / 100.0
+
             def s_to_f(s):
                 return round_f((float)(s)) * scale
+
             def get_point(j):
                 return (s_to_f(tokens[j]), s_to_f(tokens[j + 1]))
 
             x = None
             y = None
-            while(True):
+            while (True):
                 current_token = tokens[i]
                 if current_token == 'M':
                     (x, y) = get_point(i + 1)
@@ -42,8 +46,8 @@ def parse(file_name, scale):
 
                 if current_token == 'm':
                     (dx, dy) = get_point(i + 1)
-                    x = round_f (x + dx)
-                    y = round_f (y + dy)
+                    x = round_f(x + dx)
+                    y = round_f(y + dy)
                     current_polygon = [(x, y)]
                     i += 3
 
@@ -52,8 +56,8 @@ def parse(file_name, scale):
                     i += 1
                     while (tokens[i] not in ['l', 'L', 'm', 'M', 'Z']):
                         (dx, dy) = get_point(i)
-                        x = round_f (x + dx)
-                        y = round_f (y + dy)
+                        x = round_f(x + dx)
+                        y = round_f(y + dy)
                         current_polygon.append((x, y))
                         i += 2
 
@@ -80,9 +84,10 @@ def parse(file_name, scale):
         fout.write(json.dumps(polygon_group_list, indent=4))
         fout.close()
 
+
 if __name__ == '__main__':
     SCALE_X = 400.0 / 1000
     SCALE_Y = 600.0 / 1750
     SCALE = min(SCALE_X, SCALE_Y)
-    print (SCALE * SCALE * 1000 * 1750);
+    print(SCALE * SCALE * 1000 * 1750);
     parse('lk.svg', SCALE)

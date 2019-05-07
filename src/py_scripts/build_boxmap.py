@@ -1,18 +1,21 @@
 import json
 import math
 
+
 def is_on_segment(p, q, r):
     if (q[0] <= max(p[0], r[0]) and q[0] >= min(p[0], r[0]) and q[1] <= max(p[1], r[1]) and q[1] >= min(p[1], r[1])):
         return True
     return False
 
+
 def orientation(p, q, r):
     val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
     if (val == 0):
-         return 0
+        return 0
     if (val > 0):
         return 1
     return 2
+
 
 def is_do_intersect(p1, q1, p2, q2):
     o1 = orientation(p1, q1, p2)
@@ -37,7 +40,10 @@ def is_do_intersect(p1, q1, p2, q2):
 
     return False
 
+
 INF = 100000
+
+
 def is_inside(polygon, p):
     n = len(polygon)
     if (n < 3):
@@ -51,12 +57,13 @@ def is_inside(polygon, p):
         next = i + 1
         if is_do_intersect(polygon[i], polygon[next], p, extreme):
             if (orientation(polygon[i], p, polygon[next]) == 0):
-               return is_on_segment(polygon[i], p, polygon[next])
+                return is_on_segment(polygon[i], p, polygon[next])
             count += 1
         i = next
         if i == n - 1:
             break
     return count % 2 == 1
+
 
 def get_centre_point(box_points):
     min_x = INF
@@ -70,7 +77,7 @@ def get_centre_point(box_points):
         min_y = min(min_y, y)
         max_y = max(max_y, y)
 
-    return ((min_x + max_x) * 0.5, (min_y + max_y) * 0.5 )
+    return ((min_x + max_x) * 0.5, (min_y + max_y) * 0.5)
 
 
 def build_boxmap(STEP):
@@ -120,6 +127,7 @@ def build_boxmap(STEP):
     fout = open('%s.box%d.json' % (POLYON_GROUP_LIST_FILE_NAME, STEP), 'w')
     fout.write(json.dumps(box_data, indent=2))
     fout.close()
+
 
 if __name__ == '__main__':
     build_boxmap(10)
