@@ -1,8 +1,8 @@
 import json
 
-ORIGINAL_FILE_NAME = 'lk.svg.parsed.json'
-fin = open(ORIGINAL_FILE_NAME)
-polygon_group_list = json.loads(fin.read())
+ORIGINAL_FILE_NAME = '../data/json/lk.svg.parsed.json'
+f_in = open(ORIGINAL_FILE_NAME)
+polygon_group_list = json.loads(f_in.read())
 
 DISTORT_WEIGHTS = {
     'Colombo': 7.0,
@@ -62,6 +62,6 @@ for (h, polygon_group) in enumerate(polygon_group_list):
         polygon_group["polygon_list"][i] = polygon
     polygon_group_list[h] = polygon_group
 
-fout = open('%s.carto.json' % (ORIGINAL_FILE_NAME), 'w')
-fout.write(json.dumps(polygon_group_list, indent=2))
-fout.close()
+f_out = open('%s.carto.json' % ORIGINAL_FILE_NAME, 'w')
+f_out.write(json.dumps(polygon_group_list, indent=2))
+f_out.close()

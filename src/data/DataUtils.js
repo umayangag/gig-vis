@@ -86,7 +86,7 @@ export function getScale(data, keyFunc, valueFunc, scaleFunc) {
 
     valueDimList = valueDimList.sort(
         function (a, b) {
-            return a[0] < b[0];
+            return a[0] - b[0];
         },
     );
     return [keyToScaleMap, valueDimList];

@@ -2,17 +2,19 @@ import json
 import math
 
 
+def in_range(boundary1, boundary2, val):
+    return min(boundary1, boundary2) <= val <= max(boundary1, boundary2)
+
+
 def is_on_segment(p, q, r):
-    if q[0] <= max(p[0], r[0]) and q[0] >= min(p[0], r[0]) and q[1] <= max(p[1], r[1]) and q[1] >= min(p[1], r[1]):
-        return True
-    return False
+    return in_range(p[0], r[0], q[0]) and in_range(p[1], r[1], q[1])
 
 
 def orientation(p, q, r):
     val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
-    if (val == 0):
+    if val == 0:
         return 0
-    if (val > 0):
+    if val > 0:
         return 1
     return 2
 
@@ -23,19 +25,19 @@ def is_do_intersect(p1, q1, p2, q2):
     o3 = orientation(p2, q2, p1)
     o4 = orientation(p2, q2, q1)
 
-    if (o1 != o2 and o3 != o4):
+    if o1 != o2 and o3 != o4:
         return True
 
-    if (o1 == 0 and is_on_segment(p1, p2, q1)):
+    if o1 == 0 and is_on_segment(p1, p2, q1):
         return True
 
-    if (o2 == 0 and is_on_segment(p1, q2, q1)):
+    if o2 == 0 and is_on_segment(p1, q2, q1):
         return True
 
-    if (o3 == 0 and is_on_segment(p2, p1, q2)):
+    if o3 == 0 and is_on_segment(p2, p1, q2):
         return True
 
-    if (o4 == 0 and is_on_segment(p2, q1, q2)):
+    if o4 == 0 and is_on_segment(p2, q1, q2):
         return True
 
     return False
@@ -46,7 +48,7 @@ INF = 100000
 
 def is_inside(polygon, p):
     n = len(polygon)
-    if (n < 3):
+    if n < 3:
         return False
 
     extreme = (INF, p[1])
@@ -54,12 +56,12 @@ def is_inside(polygon, p):
     count = 0
     i = 0
     while True:
-        next = i + 1
-        if is_do_intersect(polygon[i], polygon[next], p, extreme):
-            if (orientation(polygon[i], p, polygon[next]) == 0):
-                return is_on_segment(polygon[i], p, polygon[next])
+        next_index = i + 1
+        if is_do_intersect(polygon[i], polygon[next_index], p, extreme):
+            if orientation(polygon[i], p, polygon[next_index]) == 0:
+                return is_on_segment(polygon[i], p, polygon[next_index])
             count += 1
-        i = next
+        i = next_index
         if i == n - 1:
             break
     return count % 2 == 1
@@ -77,12 +79,12 @@ def get_centre_point(box_points):
         min_y = min(min_y, y)
         max_y = max(max_y, y)
 
-    return ((min_x + max_x) * 0.5, (min_y + max_y) * 0.5)
+    return (min_x + max_x) * 0.5, (min_y + max_y) * 0.5
 
 
-def build_boxmap(STEP):
-    POLYON_GROUP_LIST_FILE_NAME = 'lk.svg.parsed.json'
-    fin = open(POLYON_GROUP_LIST_FILE_NAME)
+def build_box_map(step):
+    polygon_group_list_file_name = '../data/json/lk.svg.parsed.json'
+    fin = open(polygon_group_list_file_name)
     polygon_group_list = json.loads(fin.read())
 
     max_x = 0
@@ -92,13 +94,13 @@ def build_boxmap(STEP):
             for [x, y] in polygon:
                 max_x = max(x, max_x)
                 max_y = max(y, max_y)
-    width = math.ceil(max_x / STEP) * STEP
-    height = math.ceil(max_y / STEP) * STEP
+    width = math.ceil(max_x / step) * step
+    height = math.ceil(max_y / step) * step
     print(width, height)
 
     box_group_map = {}
-    for x in range(0, width, STEP):
-        for y in range(0, height, STEP):
+    for x in range(0, width, step):
+        for y in range(0, height, step):
             for polygon_group in polygon_group_list:
                 for polygon_i, polygon in enumerate(polygon_group["polygon_list"]):
                     if is_inside(polygon, [x, y]):
@@ -120,14 +122,14 @@ def build_boxmap(STEP):
     box_data = {
         "box_group_list": box_group_list,
         "n_boxes": n_boxes,
-        "STEP": STEP,
+        "step": step,
     }
     print('n_boxes = %d' % n_boxes)
 
-    fout = open('%s.box%d.json' % (POLYON_GROUP_LIST_FILE_NAME, STEP), 'w')
-    fout.write(json.dumps(box_data, indent=2))
-    fout.close()
+    f_out = open('%s.box%d.json' % (polygon_group_list_file_name, step), 'w')
+    f_out.write(json.dumps(box_data, indent=2))
+    f_out.close()
 
 
 if __name__ == '__main__':
-    build_boxmap(10)
+    build_box_map(10)
