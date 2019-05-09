@@ -7,7 +7,7 @@ Legend example:
   valueDimList={[
     [1, 100],
     [2, 50],
-    [3, 25],
+    [3, 50],
   ]}
   formatValueFunc={(x) => x}
   color="red"

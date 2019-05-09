@@ -52,7 +52,6 @@ const [nameToScaleMap, valueDimList] =
 </div>
 ```
 
-<!--
 Seats
 
 ```js
@@ -86,4 +85,4 @@ const [nameToScaleMap, valueDimList] =
     nameToScaleMap={nameToScaleMap}
   />
 </div>
-``` -->
+``` 

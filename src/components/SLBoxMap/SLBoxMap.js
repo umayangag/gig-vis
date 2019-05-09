@@ -49,7 +49,7 @@ function getColorStyles(data, keyField, attrField) {
   );
 
   const n = valueList.length;
-  var keyToStyleMap = {}
+  var keyToStyleMap = {};
   var valueColorList = [];
   for (var i in valueList) {
     const [value, key] = valueList[i];
@@ -64,7 +64,7 @@ function getColorStyles(data, keyField, attrField) {
 
 export default class SLBoxMap extends Component {
   render() {
-    const [nameToStyleMap, densityColorList] =  getColorStyles(districtStatsData, 'district', 'population_density');
+    const [nameToStyleMap, ] =  getColorStyles(districtStatsData, 'district', 'population_density');
     return dataToSVG(customBoxData, nameToStyleMap);
   }
 

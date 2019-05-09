@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import './AreaLegend.css';
-
-function formatValue(v) {
-  return Math.round(v);
-}
 
 export default class AreaLegend extends Component {
   render() {
@@ -18,7 +15,7 @@ export default class AreaLegend extends Component {
         </span>
         {
           this.props.valueDimList.map(
-            function([value, dim], i) {
+            function ([value, dim], i) {
               if (i % gap !== 0) {
                 return null;
               }
@@ -27,9 +24,9 @@ export default class AreaLegend extends Component {
                 width: dim2,
                 height: dim2,
                 backgroundColor: this.props.color,
-              }
+              };
               return (
-                <div style={style} className="AreaLegendItem">
+                <div style={style} key={i} className="AreaLegendItem">
                   <div className="AreaLegendText">
                     {this.props.formatValueFunc(value)}
                   </div>
@@ -42,3 +39,9 @@ export default class AreaLegend extends Component {
     );
   }
 }
+
+AreaLegend.propTypes = {
+  valueDimList: PropTypes.array,
+  formatValueFunc: PropTypes.func,
+  color:PropTypes.string
+};

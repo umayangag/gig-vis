@@ -10,30 +10,30 @@ export default class Legend extends Component {
       <div>
         <table>
           <tbody>
-            <tr>
-              <td>
+          <tr>
+            <td>
                 <span className="LegendTitle">
                   {this.props.title}
                 </span>
-              </td>
-              {
-                this.props.valueColorList.map(
-                  function([value, color], i) {
-                    if (i % gap !== 0) {
-                      return null;
-                    }
-                    return (
-                      <td
-                        class="LegendItem"
-                        style={{backgroundColor: color}}
-                      >
-                        {this.props.formatValueFunc(value)}
-                      </td>
-                    )
-                  }.bind(this),
-                )
-              }
-            </tr>
+            </td>
+            {
+              this.props.valueColorList.map(
+                function ([value, color], i) {
+                  if (i % gap !== 0) {
+                    return null;
+                  }
+                  return (
+                    <td key={i}
+                      className="LegendItem"
+                      style={{backgroundColor: color}}
+                    >
+                      {Math.round(value)}
+                    </td>
+                  )
+                },
+              )
+            }
+          </tr>
           </tbody>
         </table>
       </div>

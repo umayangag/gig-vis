@@ -13,8 +13,8 @@ function getCartoDistort(nameToScaleMap) {
   polygonGroupList = polygonGroupList.map(
     function(polygonGroup, i) {
       // Compute Scale Stats
-      const name = polygonGroup.name
-      var scale = 1.0;
+      const name = polygonGroup.name;
+      let scale = 1.0;
       if (nameToScaleMap[name]) {
         scale = nameToScaleMap[name];
       }
@@ -109,7 +109,7 @@ export default class SLDistrictCarto extends Component {
       <PolygonGroupList
         polygonGroupList={polygonGroupList}
         nameToStyleMap={this.props.nameToStyleMap}
-        nameToScaleMap={{}}
+        nameToScaleMap={this.props.nameToScaleMap}
         onClick={function(e) {
           this.setState({doScale: !this.state.doScale});
         }.bind(this)}

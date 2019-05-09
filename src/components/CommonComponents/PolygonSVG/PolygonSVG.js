@@ -5,11 +5,11 @@ import './PolygonSVG.css'
 
 function getDims(polygonGroupList) {
   return polygonGroupList.reduce(
-    function([width, height], polygonGroup) {
+    function ([width, height], polygonGroup) {
       return polygonGroup.polygon_list.reduce(
-        function([width, height], polygon) {
+        function ([width, height], polygon) {
           return polygon.reduce(
-            function([width, height], [x, y]) {
+            function ([width, height], [x, y]) {
               return [Math.max(width, x), Math.max(height, y)];
             },
             [width, height],
@@ -24,9 +24,9 @@ function getDims(polygonGroupList) {
 
 function getCentrePoint(polygonGroup) {
   const [sx, sy, sw] = polygonGroup.polygon_list.reduce(
-    function([sx, sy, sw], polygon) {
+    function ([sx, sy, sw], polygon) {
       const n = polygon.length;
-      for (var i in polygon) {
+      for (let i in polygon) {
         const [x1, y1] = polygon[i];
         const [x2, y2] = polygon[(i + 1) % n];
         const [x, y] = [(x1 + x2) * 0.5, (y1 + y2) * 0.5];
@@ -51,27 +51,28 @@ function getCentrePoint(polygonGroup) {
 class Polygon extends Component {
   getCentrePoint() {
     const [sx, sy, n] = this.props.points.reduce(
-      function([sx, sy, n], [x, y]) {
+      function ([sx, sy, n], [x, y]) {
         return [sx + x, sy + y, n + 1];
       },
       [0, 0, 0],
     );
     return [sx * 1.0 / n, sy * 1.0 / n];
   }
+
   render() {
     const style = this.props.style;
     const scale2 = this.props.scale;
     const scale = Math.sqrt(scale2);
     const [cx, cy] = this.getCentrePoint();
     const pointsStr = this.props.points.map(
-      function([x, y]) {
+      function ([x, y]) {
         return [
           cx + (x - cx) * scale,
           cy + (y - cy) * scale
         ].join(',');
       },
     ).join(' ');
-    return <polygon className="Polygon" style={style} points={pointsStr} />;
+    return <polygon className="Polygon" style={style} points={pointsStr}/>;
   }
 }
 
@@ -84,22 +85,22 @@ class PolygonGroup extends Component {
       <svg className="PolygonGroup">
         {
           polygonGroup.polygon_list.map(
-            function(points) {
+            function (points, i) {
               return (
-                <Polygon
+                <Polygon key={i}
                   points={points}
                   style={this.props.style}
                   scale={this.props.scale}
                 />
               );
-            }.bind(this),
+            }.bind(this)
           )
         }
         <text
           className="PolygonText"
           x={cx}
           y={cy}>
-            {polygonGroup.label ? polygonGroup.label : polygonGroup.name}
+          {polygonGroup.label ? polygonGroup.label : polygonGroup.name}
         </text>
       </svg>
     );
@@ -122,20 +123,20 @@ export default class PolygonGroupList extends Component {
       >
         {
           polygonGroupList.map(
-            function(polygonGroup, i) {
-              var style = {};
+            function (polygonGroup, i) {
+              let style = {};
               const name = polygonGroup.name;
               if (nameToStyleMap[name]) {
                 style = nameToStyleMap[name];
               }
 
-              var scale = 1.0;
+              let scale = 1.0;
               if (nameToScaleMap[name]) {
                 scale = nameToScaleMap[name];
               }
 
               return (
-                <PolygonGroup
+                <PolygonGroup key={i}
                   polygonGroup={polygonGroup}
                   style={style}
                   scale={scale}
