@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import './Legend.css';
 
 export default class Legend extends Component {
@@ -18,16 +19,16 @@ export default class Legend extends Component {
             </td>
             {
               this.props.valueColorList.map(
-                function ([value, color], i) {
+                ([value, color], i) =>{
                   if (i % gap !== 0) {
                     return null;
                   }
                   return (
                     <td key={i}
-                      className="LegendItem"
-                      style={{backgroundColor: color}}
+                        className="LegendItem"
+                        style={{backgroundColor: color}}
                     >
-                      {Math.round(value)}
+                      {this.props.formatValueFunc(value)}
                     </td>
                   )
                 },
@@ -40,3 +41,9 @@ export default class Legend extends Component {
     );
   }
 }
+
+Legend.propTypes = {
+  valueColorList: PropTypes.array,
+  formatValueFunc: PropTypes.func,
+  title: PropTypes.string
+};

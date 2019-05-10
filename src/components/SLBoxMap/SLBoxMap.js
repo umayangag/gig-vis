@@ -11,15 +11,16 @@ function dataToSVG(boxData, nameToStyleMap) {
     <svg className="SLBoxMap">
       {
         boxGroupList.map(
-          function(boxGroup, i) {
+          function (boxGroup, i) {
             const name = boxGroup.name;
-            var style = {};
+            let style = {};
             if (nameToStyleMap[name]) {
               style = nameToStyleMap[name];
             }
             return boxGroup.box_points.map(
-              function([x, y]) {
-                return  <rect className="SLBoxMapRect" style={style} x={x - STEP/2} y={y - STEP/2} width={STEP} height={STEP} />
+              function ([x, y]) {
+                return <rect key={'text' + boxGroup.name + x + y} className="SLBoxMapRect" style={style}
+                             x={x - STEP / 2} y={y - STEP / 2} width={STEP} height={STEP}/>
               },
             );
           },
@@ -27,9 +28,10 @@ function dataToSVG(boxData, nameToStyleMap) {
       }
       {
         boxGroupList.map(
-          function(boxGroup, i) {
+          function (boxGroup, i) {
             const [cx, cy] = boxGroup.centre_point;
-            return  <text className="SLBoxMapText" x={cx - STEP/2} y={cy - STEP/2}>{boxGroup.name}</text>;
+            return <text key={'text' + boxGroup.name + i} className="SLBoxMapText" x={cx - STEP / 2}
+                         y={cy - STEP / 2}>{boxGroup.name}</text>;
           },
         )
       }
@@ -39,19 +41,19 @@ function dataToSVG(boxData, nameToStyleMap) {
 
 function getColorStyles(data, keyField, attrField) {
   const valueList = data.map(
-    function(datum) {
+    function (datum) {
       return [datum[attrField], datum[keyField]];
     }
   ).sort(
-    function(a, b) {
+    function (a, b) {
       return a[0] < b[0];
     }
   );
 
   const n = valueList.length;
-  var keyToStyleMap = {};
-  var valueColorList = [];
-  for (var i in valueList) {
+  let keyToStyleMap = {};
+  let valueColorList = [];
+  for (let i = 0; i < valueList.length; i++) {
     const [value, key] = valueList[i];
     const h = Math.round(240 * i / n);
     const color = 'hsla(' + h + ', 80%, 60%, 0.9)';
@@ -64,7 +66,7 @@ function getColorStyles(data, keyField, attrField) {
 
 export default class SLBoxMap extends Component {
   render() {
-    const [nameToStyleMap, ] =  getColorStyles(districtStatsData, 'district', 'population_density');
+    const [nameToStyleMap,] = getColorStyles(districtStatsData, 'district', 'population_density');
     return dataToSVG(customBoxData, nameToStyleMap);
   }
 

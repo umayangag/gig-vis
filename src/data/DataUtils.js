@@ -74,7 +74,7 @@ export function getScale(data, keyFunc, valueFunc, scaleFunc) {
 
   let keyToScaleMap = {};
   let valueDimList = [];
-  for (let i in data) {
+  for (let i = 0; i < data.length; i++){
     const datum = data[i];
     const key = keyFunc(datum);
     const value = valueFunc(datum);

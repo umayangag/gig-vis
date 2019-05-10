@@ -43,5 +43,6 @@ export default class AreaLegend extends Component {
 AreaLegend.propTypes = {
   valueDimList: PropTypes.array,
   formatValueFunc: PropTypes.func,
-  color:PropTypes.string
+  color:PropTypes.string,
+  title:PropTypes.string
 };
