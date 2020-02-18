@@ -35,7 +35,6 @@ def parse(file_name, scale):
             tokens = list(filter(lambda t: t.strip(), d.split(' ')))
             if tokens[len(tokens) - 1] not in ['z', 'Z']:
                 tokens.append('Z')
-            print(tokens)
 
             i = 0
 
@@ -52,7 +51,6 @@ def parse(file_name, scale):
             y = None
             while True:
                 current_token = tokens[i]
-                print(current_token)
                 if current_token == 'M':
                     (x, y) = get_point(i + 1)
                     current_polygon = [(x, y)]
@@ -104,9 +102,7 @@ def parse(file_name, scale):
 
                 elif current_token in ['L', 'C', 'S']:
                     i += 1
-                    print(tokens[i], get_point(i))
                     while tokens[i] not in tokenTypes:
-                        print(i)
                         (x, y) = get_point(i)
                         current_polygon.append((x, y))
                         i += 2
@@ -115,15 +111,12 @@ def parse(file_name, scale):
                     polygon_list.append(current_polygon)
                     i += 1
 
-                else:
-                    print("token not handled", tokens[i])
-
                 if i >= len(tokens):
                     break
 
             polygon_group_list.append({
                 'polygon_list': polygon_list,
-                'name': path.attrib['name'],
+                # 'name': path.attrib['name'],
             })
         f_out = open('%s.parsed.json' % file_name, 'w')
         f_out.write(json.dumps(polygon_group_list, indent=4))
@@ -131,8 +124,8 @@ def parse(file_name, scale):
 
 
 if __name__ == '__main__':
-    SCALE_X = 400.0 / 1000
-    SCALE_Y = 600.0 / 1750
+    SCALE_X = 1
+    SCALE_Y = 1
     SCALE = min(SCALE_X, SCALE_Y)
-    print(SCALE * SCALE * 1000 * 1750)
-    parse('../data/svg/test.svg', SCALE)
+    print(SCALE * SCALE)
+    parse('../data/svg/lk2.svg', SCALE)
